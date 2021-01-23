@@ -19,6 +19,8 @@ export default function Application() {
     interviewers: {}
   });
 
+  console.log("State!", state)
+
   const dailyAppointments = getAppointmentsForDay(state, state.day)
 
   const setDay = day => setState(prev => ({ ...prev, day }));
@@ -32,7 +34,30 @@ export default function Application() {
       console.log(all)
       setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}))
     });
-  },[])
+  },[]);
+
+  // On click of the Save button in form
+  const bookInterview = (id, interview) => {
+    //To replace current value of interview key with new value
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    //Use this updated pattern to replace the existing record with matching id
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    //Update function to call setState with new state object
+    setState({
+      ...state,
+      appointments
+    });
+
+    //Request to API to update appointment with interview
+    return axios.put(`/api/appointments/${id}`, { interview }).then(response => {
+    });
+  }
 
   const schedule = dailyAppointments.map((appointment) =>{
     const interview = getInterview(state, appointment.interview);
@@ -41,6 +66,7 @@ export default function Application() {
       id={appointment.id}
       time={appointment.time}
       interviewers = {getInterviewersForDay(state, state.day)}
+      bookInterview={bookInterview}
       interview={interview} 
       />)
   });
