@@ -55,7 +55,7 @@ const { state, setDay, bookInterview, cancelInterview } = useApplicationData();
       </section>
       <section className="schedule">
         {appointments}
-        
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );

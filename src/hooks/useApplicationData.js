@@ -37,13 +37,16 @@ export default function useApplicationData(initial) {
     const appointments = {
       ...state.appointments,
       [id]: appointment
-    };
+    };    
 
     return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
-      setState(prev => ({
-        ...prev,
-        appointments
-      }));
+      return axios.get('/api/days').then((resp) => {
+        setState(prev => ({
+          ...prev,
+          appointments,
+          days: resp.data
+        }))
+      })
     });
   };
 
@@ -60,10 +63,13 @@ export default function useApplicationData(initial) {
     };
 
     return axios.delete(`/api/appointments/${id}`).then(() => {
-      setState(prev => ({
-        ...prev,
-        appointments
-      }));
+      return axios.get('/api/days').then((resp) => {
+        setState(prev => ({
+          ...prev,
+          appointments,
+          days: resp.data
+        }))
+      })
     });
   };
 
