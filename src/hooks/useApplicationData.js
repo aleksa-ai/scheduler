@@ -27,6 +27,18 @@ export default function useApplicationData(initial) {
     });
   }, []);
 
+  //Updating Spots Remaining On Client Side
+  function getDaysWithUpdatedSpots(appointmentsList, dayName) {
+    return state.days.map((day) => {
+      if (day.name === dayName){
+        let freeSpots = day.appointments.filter((id) => !appointmentsList[id].interview).length;
+        return {...day, spots: freeSpots}
+      } else {
+        return day
+      }
+    })
+  };
+  
   // On click of the Save button in form
   function bookInterview(id, interview) {
     const appointment = {
@@ -40,13 +52,11 @@ export default function useApplicationData(initial) {
     };    
 
     return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
-      return axios.get('/api/days').then((resp) => {
         setState(prev => ({
           ...prev,
           appointments,
-          days: resp.data
+          days: getDaysWithUpdatedSpots(appointments, state.day)
         }))
-      })
     });
   };
 
@@ -63,13 +73,11 @@ export default function useApplicationData(initial) {
     };
 
     return axios.delete(`/api/appointments/${id}`).then(() => {
-      return axios.get('/api/days').then((resp) => {
         setState(prev => ({
           ...prev,
           appointments,
-          days: resp.data
+          days: getDaysWithUpdatedSpots(appointments, state.day)
         }))
-      })
     });
   };
 
