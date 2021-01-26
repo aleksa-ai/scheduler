@@ -38,14 +38,14 @@ export default function Appointment(props){
     //Show SAVING indicator before calling props.bookInterview
     transition(SAVING, true);
 
-    if (!interviewer || !name) {
-      transition(ERROR_AT_INPUT, true)
-    } else {
+    // if (!interviewer || !name) {
+    //   transition(ERROR_AT_INPUT, true)
+    // } else {
       props
         .bookInterview(props.id, interview)
         .then(() => transition(SHOW))
         .catch(() => transition(ERROR_SAVE, true));
-    }
+    // }
 
   } 
 
