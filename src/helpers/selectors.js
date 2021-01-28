@@ -20,5 +20,5 @@ export function getInterviewersForDay(state, day) {
   if (state.days.length === 0) return [];
   if (stateDay === undefined) return [];
   const dayInterviewers = stateDay.interviewers.map(id => state.interviewers[id]);
-  return dayInterviewers
+  return dayInterviewers;
 };
