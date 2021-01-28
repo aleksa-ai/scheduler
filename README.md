@@ -4,7 +4,7 @@
 
 ## Description
 
-
+Interview Scheduler is a simple SPA for scheduling appointments. Built using React, it allows users to create, edit, and delete appointments within an arbitrary week. Data is obtained from and saved to an API server using PostgreSQL database, making updates to interviews dynamic.
 
 ## Final Product
 
@@ -12,15 +12,31 @@
 | ------------- |:-------------:|
 | !["Booked appointment"](docs/images/finalprodshow.png) | !["Confirming deletion of appointment"](docs/images/finalproddelete.png) |
 
+## Technology
+
+Single-page application built with modern React practices such as hooks and functional components.
+
+Front-End: HTML, SCSS, React
+
+Back-End: Node, Express, PostgreSQL
+
 ## Dependencies
 
-- axios
-- classnames
+- Axios
+- Classnames
 - body-normalize.css
-- react
+- React
 - react-dom
 - react-hooks-testing-library
 - react-scripts
+
+## Testing
+
+This app was extensively tested using the following technologies:
+
+- Storybook for unit testing
+- Jest for unit and integration testing
+- Cypress for end to end testing
 
 ## Setup
 
