@@ -34,7 +34,7 @@ describe('Appointments', () => {
     cy.contains('.appointment__card--show', 'Tori Malcolm');
   });
 
-  //Test Interview Cancelation 
+  //Test Interview Cancelation
   it.only('should cancel an interview', () => {
     //Clicks the delete button for the existing appointment
     cy.get('[alt=Delete]').click({ force: true });

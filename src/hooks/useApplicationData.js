@@ -1,28 +1,28 @@
 import { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 export default function useApplicationData(initial) {
   const [state, setState] = useState({
-    day: 'Monday',
+    day: "Monday",
     days: [],
     appointments: {},
-    interviewers: {}
+    interviewers: {},
   });
 
-  const setDay = day => setState({ ...state, day });
+  const setDay = (day) => setState({ ...state, day });
 
   // Load information from database on pageload
   useEffect(() => {
     Promise.all([
-      axios.get('/api/days'),
-      axios.get('/api/appointments'),
-      axios.get('/api/interviewers')
-    ]).then(all => {
-      setState(prev => ({
+      axios.get("/api/days"),
+      axios.get("/api/appointments"),
+      axios.get("/api/interviewers"),
+    ]).then((all) => {
+      setState((prev) => ({
         ...prev,
         days: all[0].data,
         appointments: all[1].data,
-        interviewers: all[2].data
+        interviewers: all[2].data,
       }));
     });
   }, []);
@@ -30,56 +30,58 @@ export default function useApplicationData(initial) {
   //Updating Spots Remaining On Client Side
   function getDaysWithUpdatedSpots(appointmentsList, dayName) {
     return state.days.map((day) => {
-      if (day.name === dayName){
-        let freeSpots = day.appointments.filter((id) => !appointmentsList[id].interview).length;
-        return {...day, spots: freeSpots}
+      if (day.name === dayName) {
+        let freeSpots = day.appointments.filter(
+          (id) => !appointmentsList[id].interview
+        ).length;
+        return { ...day, spots: freeSpots };
       } else {
-        return day
+        return day;
       }
-    })
-  };
-  
+    });
+  }
+
   // On click of the Save button in form
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
+      interview: { ...interview },
     };
 
     const appointments = {
       ...state.appointments,
-      [id]: appointment
-    };    
+      [id]: appointment,
+    };
 
     return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
-        setState(prev => ({
-          ...prev,
-          appointments,
-          days: getDaysWithUpdatedSpots(appointments, state.day)
-        }))
+      setState((prev) => ({
+        ...prev,
+        appointments,
+        days: getDaysWithUpdatedSpots(appointments, state.day),
+      }));
     });
-  };
+  }
 
   // On click of the Confirm button Delete confirmation
   function cancelInterview(id) {
     const appointment = {
       ...state.appointments[id],
-      interview: null
+      interview: null,
     };
 
     const appointments = {
       ...state.appointments,
-      [id]: appointment
+      [id]: appointment,
     };
 
     return axios.delete(`/api/appointments/${id}`).then(() => {
-        setState(prev => ({
-          ...prev,
-          appointments,
-          days: getDaysWithUpdatedSpots(appointments, state.day)
-        }))
+      setState((prev) => ({
+        ...prev,
+        appointments,
+        days: getDaysWithUpdatedSpots(appointments, state.day),
+      }));
     });
-  };
+  }
 
   return { state, setDay, bookInterview, cancelInterview };
-}; 
+}

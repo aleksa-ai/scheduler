@@ -5,7 +5,9 @@
   "proxy": "http://localhost:8001",
   "dependencies": {
     "axios": "^0.21.1",
+    "babel-loader": "^8.0.5",
     "classnames": "^2.2.6",
+    "eslint": "^5.16.0",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -18,7 +20,8 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public --ci",
     "build-storybook": "build-storybook -s public",
-    "cypress": "cypress open -P ."
+    "cypress": "cypress open -P .",
+    "lint": "eslint"
   },
   "browserslist": {
     "production": [
@@ -42,8 +45,7 @@
     "@testing-library/jest-dom": "^4.0.0",
     "@testing-library/react": "^8.0.7",
     "@testing-library/react-hooks": "^5.0.0",
-    "babel-loader": "^8.0.5",
-    "eslint": "^7.18.0",
+    "eslint-plugin-react": "^7.22.0",
     "node-sass": "^4.14.0",
     "prop-types": "^15.7.2",
     "react-test-renderer": "^16.9.0"
