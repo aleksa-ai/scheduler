@@ -22,7 +22,6 @@ const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
 const ERROR_SAVE = 'ERROR_SAVE'
 const ERROR_DELETE = 'ERROR_DELETE'
-const ERROR_AT_INPUT = 'ERROR_AT_INPUT'
 
 export default function Appointment(props){
   const { mode, transition, back } = useVisualMode(
@@ -103,12 +102,6 @@ export default function Appointment(props){
           onClose={() => back()}
         />
       )}
-      {mode === ERROR_AT_INPUT && (
-        <Error
-          message={'Name field left empty and/or interviewer not selected.'}
-          onClose={() => back()}
-        />
-      )}  
     </article>
   );
 }
