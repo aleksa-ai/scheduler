@@ -1,4 +1,18 @@
 {
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "semi": "error"
+  },
+  "env": {
+    "jest": true
+  },
   "extends": "react-app",
-  "parser": "babel-eslint"
-}
+  "globals": {
+    "cy": true
+  }
